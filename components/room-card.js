@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const RoomCard = (props) => {
   return (
@@ -15,17 +16,18 @@ const RoomCard = (props) => {
       </div>
       <div className="p-4">
         <div className="flex gap-2 mb-2">
-          {props.data.amenities.map((item, key) => {
-            key++;
-            return (
-              <div
-                className="px-2 py-1 bg-blue-400 text-white rounded text-xs uppercase"
-                key={key}
-              >
-                {item}
-              </div>
-            );
-          })}
+          {props.data.amenities &&
+            props.data.amenities.map((item, key) => {
+              key++;
+              return (
+                <div
+                  className="px-2 py-1 bg-blue-400 text-white rounded text-xs uppercase"
+                  key={key}
+                >
+                  {item}
+                </div>
+              );
+            })}
         </div>
         <div className="flex justify-between">
           <p>
@@ -41,9 +43,15 @@ const RoomCard = (props) => {
         <p className="leading-7">{props.data.shortDescription}</p>
       </div>
       <div className="flex justify-end">
-        <button className="py-2 px-4 m-4 bg-blue-500 rounded text-white">
+        <Link
+          href={{
+            pathname: `/reservation/${props.data._id}`,
+            query: props.data,
+          }}
+          className="py-2 px-4 m-4 bg-blue-500 rounded text-white font-bold"
+        >
           Zarezerwuj
-        </button>
+        </Link>
       </div>
     </div>
   );

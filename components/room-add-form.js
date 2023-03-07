@@ -33,23 +33,6 @@ const RoomAddForm = () => {
     } catch (error) {
       console.log(error);
     }
-    try {
-      const response = await axios.post(
-        "https://systemrejestracji.up.railway.app/admin/create/",
-        {
-          name,
-          peopleCount,
-          bedCount,
-          description,
-          shortDescription,
-          image,
-          amenities,
-        }
-      );
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   return (
