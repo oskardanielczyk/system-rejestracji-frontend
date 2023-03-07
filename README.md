@@ -6,4 +6,4 @@ Projekt tworzony na potrzeby konkursu JJIT 3.
 To repo zawiera frontend.
 
 Backend jest budowany za pomocą Node.js oraz express.
-Link do repo backendu: [https://github.com/Kamilosb/SystemRejestracji][https://github.com/kamilosb/systemrejestracji]
+Link do repo backendu: https://github.com/kamilosb/systemrejestracji
