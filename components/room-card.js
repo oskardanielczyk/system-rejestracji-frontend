@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const RoomCard = (props) => {
   return (
-    <div className="my-7 shadow rounded overflow-hidden w-96 relative">
+    <div className="my-7 shadow rounded overflow-hidden w-96 relative bg-white">
       <Image
         src={props.data.image}
         width="400"
@@ -15,11 +15,12 @@ const RoomCard = (props) => {
       </div>
       <div className="p-4">
         <div className="flex gap-2 mb-2">
-          {props.data.amenities.map((item) => {
+          {props.data.amenities.map((item, key) => {
+            key++;
             return (
               <div
                 className="px-2 py-1 bg-blue-400 text-white rounded text-xs uppercase"
-                key={item}
+                key={key}
               >
                 {item}
               </div>
@@ -37,7 +38,7 @@ const RoomCard = (props) => {
           </p>
         </div>
         <p className="mt-5 mb-1 font-bold">Opis:</p>
-        <p className="leading-7">{props.data.shortDesc}</p>
+        <p className="leading-7">{props.data.shortDescription}</p>
       </div>
       <div className="flex justify-end">
         <button className="py-2 px-4 m-4 bg-blue-500 rounded text-white">
