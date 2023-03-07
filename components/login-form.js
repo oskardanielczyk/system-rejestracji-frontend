@@ -19,17 +19,6 @@ const LoginForm = () => {
         }
       );
       console.log(response);
-
-      //   const requestOptions = {
-      //     method: "POST",
-      //     body: { login, password },
-      //   };
-      //   const response = await fetch(
-      //     "https://systemrejestracji.up.railway.app/users/login",
-      //     requestOptions
-      //   );
-      //   const res = await response.json();
-      //   console.log(res);
     } catch (error) {
       console.log(error);
     }

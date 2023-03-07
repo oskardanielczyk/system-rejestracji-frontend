@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const RoomCard = (props) => {
   return (
-    <div className="my-7 shadow rounded overflow-hidden w-96 relative bg-white">
+    <div className="my-7 shadow rounded overflow-hidden relative bg-white">
       <Image
         src={props.data.image}
         width="400"

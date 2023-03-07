@@ -74,7 +74,10 @@ export default function Home() {
 
   return (
     <>
-      <div className="grid grid-cols-1 w-full justify-items-center lg:grid-cols-2 xl:grid-cols-3">
+      <div className="p-10 pb-0 font-bold">
+        <h1 className="text-4xl">Oferta</h1>
+      </div>
+      <div className="grid gap-4 grid-cols-1 w-full p-10 pt-0 justify-items-center lg:grid-cols-2 xl:grid-cols-3">
         {rooms &&
           rooms.map((room) => {
             return <RoomCard data={room} key={room._id} />;
