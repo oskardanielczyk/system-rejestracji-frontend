@@ -9,7 +9,7 @@ const Reservation = () => {
 
   return (
     <div className="flex gap-4 px-10">
-      <ReservationForm />
+      <ReservationForm roomId={data.id} />
       <RoomCard data={data} />
     </div>
   );
