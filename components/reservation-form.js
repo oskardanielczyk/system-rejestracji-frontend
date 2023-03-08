@@ -12,8 +12,6 @@ const ReservationForm = (props) => {
   const [dateFrom, setDateFrom] = useState(new Date());
   const [dateTo, setDateTo] = useState(new Date());
 
-  console.log(props);
-
   const onDateChange = (dates) => {
     const [start, end] = dates;
     setDateFrom(start);
@@ -49,11 +47,8 @@ const ReservationForm = (props) => {
   };
 
   return (
-    <div className="w-full my-7">
-      <form
-        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-        onSubmit={reservationSubmit}
-      >
+    <div className="my-7 grow shadow rounded bg-white">
+      <form className="px-8 pt-6 pb-8 mb-4" onSubmit={reservationSubmit}>
         <h1 className="text-2xl font-bold mb-4">Formularz rezerwacji</h1>
         <div className="mb-4">
           <label
