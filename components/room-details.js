@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const RoomDetails = (props) => {
   return (
-    <div className="my-7 shadow rounded overflow-hidden relative bg-white basis-4/12">
+    <div className="mb-7 mt-4 shadow rounded overflow-hidden relative bg-white basis-4/12">
       <Image
         src={props.data.image}
         width="400"

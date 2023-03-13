@@ -47,7 +47,7 @@ const ReservationForm = (props) => {
   };
 
   return (
-    <div className="my-7 grow shadow rounded bg-white">
+    <div className="mb-7 mt-4 grow shadow rounded bg-white">
       <form className="px-8 pt-6 pb-8 mb-4" onSubmit={reservationSubmit}>
         <h1 className="text-2xl font-bold mb-4">Formularz rezerwacji</h1>
         <div className="mb-4">

@@ -74,7 +74,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="p-10 pb-0 font-bold">
+      <div className="p-10 pb-0 pt-0 font-bold">
         <h1 className="text-4xl">Oferta</h1>
       </div>
       <div className="grid gap-4 grid-cols-1 w-full p-10 pt-0 justify-items-center lg:grid-cols-2 xl:grid-cols-3">

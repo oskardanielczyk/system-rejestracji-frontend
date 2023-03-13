@@ -5,10 +5,11 @@ const RoomAddForm = () => {
   const [name, setName] = useState();
   const [peopleCount, setPeopleCount] = useState();
   const [bedCount, setBedCount] = useState();
+  const [price, setPrice] = useState();
   const [description, setDescription] = useState();
   const [shortDescription, setShortDescription] = useState();
   const [image, setImage] = useState();
-  const [amenities, setAmenities] = useState();
+  const [amenitiesTemp, setAmenitiesTemp] = useState();
 
   const inputStyle =
     "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
@@ -16,6 +17,8 @@ const RoomAddForm = () => {
 
   const sendRoomData = async (event) => {
     event.preventDefault();
+    const amenities = amenitiesTemp.split(",");
+    console.log(amenities);
     try {
       const response = await axios.post(
         "https://systemrejestracji.up.railway.app/admin/create/",
@@ -27,6 +30,13 @@ const RoomAddForm = () => {
           shortDescription,
           image,
           amenities,
+          price,
+        },
+        {
+          headers: {
+            authorization: `Bearer: ${sessionStorage.getItem("token")}`,
+          },
+          withCredentials: true,
         }
       );
       console.log(response);
@@ -95,6 +105,23 @@ const RoomAddForm = () => {
           </div>
           <div className="md:flex md:items-center mb-6">
             <div className="md:w-1/3">
+              <label className={labelStyle} htmlFor="inline-price">
+                Cena (PLN)
+              </label>
+            </div>
+            <div className="md:w-2/3">
+              <input
+                className={inputStyle}
+                id="inline-price"
+                type="number"
+                onChange={(event) => {
+                  setPrice(event.target.value);
+                }}
+              />
+            </div>
+          </div>
+          <div className="md:flex md:items-center mb-6">
+            <div className="md:w-1/3">
               <label className={labelStyle} htmlFor="inline-short-description">
                 Krótki opis
               </label>
@@ -146,7 +173,7 @@ const RoomAddForm = () => {
           <div className="md:flex md:items-center mb-6">
             <div className="md:w-1/3">
               <label className={labelStyle} htmlFor="inline-amenities">
-                Udogodnienia
+                Udogodnienia (po przecinku)
               </label>
             </div>
             <div className="md:w-2/3">
@@ -155,7 +182,7 @@ const RoomAddForm = () => {
                 id="inline-amenities"
                 type="text"
                 onChange={(event) => {
-                  setAmenities(event.target.value);
+                  setAmenitiesTemp(event.target.value);
                 }}
               />
             </div>

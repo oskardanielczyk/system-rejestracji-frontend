@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 import ReservationForm from "@/components/reservation-form";
 import RoomDetails from "@/components/room-details";
@@ -8,10 +9,15 @@ const Reservation = () => {
   const data = router.query;
 
   return (
-    <div className="lg:flex gap-4 px-10">
-      <ReservationForm roomId={data.id} />
-      <RoomDetails data={data} />
-    </div>
+    <>
+      <Link href="/" className="mt-10 ml-10 underline">
+        powrót do listy pokoi
+      </Link>
+      <div className="lg:flex gap-4 px-10">
+        <ReservationForm roomId={data.id} />
+        <RoomDetails data={data} />
+      </div>
+    </>
   );
 };
 

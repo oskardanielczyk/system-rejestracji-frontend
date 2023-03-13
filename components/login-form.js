@@ -18,7 +18,8 @@ const LoginForm = () => {
           withCredentials: true,
         }
       );
-      console.log(response);
+      sessionStorage.setItem("token", response.data.token);
+      console.log(response.data.token);
     } catch (error) {
       console.log(error);
     }
