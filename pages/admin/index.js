@@ -1,15 +1,12 @@
-import LoginForm from "@/components/login-form";
+import ReservationList from "@/components/reservation-list";
 import RoomAddForm from "@/components/room-add-form";
 
 const AdminPage = () => {
   return (
     <>
-      <h1 className="m-10 text-xl bg-white p-5 shadow-md rounded">
-        Panel administracyjny - Hotel Brylant
-      </h1>
-      <div className="flex">
-        <LoginForm />
+      <div className="flex px-10 py-2 gap-4">
         <RoomAddForm />
+        <ReservationList />
       </div>
     </>
   );
