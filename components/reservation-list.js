@@ -35,6 +35,16 @@ const COLUMNS = [
     Header: "ID pokoju",
     accessor: "roomId",
   },
+  {
+    Header: "Akcje",
+    Cell: () => {
+      return (
+        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline">
+          X
+        </button>
+      );
+    },
+  },
 ];
 
 const ReservationList = () => {
