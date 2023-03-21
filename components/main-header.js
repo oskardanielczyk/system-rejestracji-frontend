@@ -1,15 +1,18 @@
 import Link from "next/link";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useContext } from "react";
+
+import LoginData from "@/store/login-data";
 
 const MainHeader = () => {
   const router = useRouter();
-  const [token, setToken] = useState();
+
+  const { token, setToken } = useContext(LoginData);
 
   useEffect(() => {
     setToken(Cookies.get("token"));
-  }, []);
+  });
 
   const logoutHandler = () => {
     Cookies.remove("token");

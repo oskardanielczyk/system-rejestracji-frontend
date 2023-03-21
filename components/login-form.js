@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+
+import LoginData from "@/store/login-data";
 
 const LoginForm = () => {
   const [login, setLogin] = useState();
   const [password, setPassword] = useState();
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const { setToken } = useContext(LoginData);
 
   const router = useRouter();
 
@@ -26,6 +30,7 @@ const LoginForm = () => {
         }
       );
       Cookies.set("token", response.data.token);
+      setToken(response.data.token);
       router.push("/admin");
     } catch (error) {
       console.log(error);
