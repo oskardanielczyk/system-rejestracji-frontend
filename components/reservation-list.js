@@ -1,12 +1,41 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useTable, usePagination } from "react-table";
+import { format } from "date-fns";
 
-const options = {
-  year: "numeric",
-  month: "numeric",
-  day: "numeric",
-};
+const COLUMNS = [
+  {
+    Header: "Imię",
+    accessor: "firstName",
+  },
+  {
+    Header: "Nazwisko",
+    accessor: "lastName",
+  },
+  {
+    Header: "Email",
+    accessor: "email",
+  },
+  {
+    Header: "Od",
+    accessor: "dateFrom",
+    Cell: ({ value }) => {
+      return format(new Date(value), "dd.mm.yyyy");
+    },
+  },
+  {
+    Header: "Do",
+    accessor: "dateTo",
+    Cell: ({ value }) => {
+      return format(new Date(value), "dd.mm.yyyy");
+    },
+  },
+  {
+    Header: "ID pokoju",
+    accessor: "roomId",
+  },
+];
 
 const ReservationList = () => {
   const [reservations, setReservations] = useState([]);
@@ -32,61 +61,88 @@ const ReservationList = () => {
     fetchData();
   }, []);
 
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    page,
+    prepareRow,
+    nextPage,
+    previousPage,
+    canNextPage,
+    canPreviousPage,
+    pageOptions,
+    state,
+  } = useTable(
+    {
+      columns: COLUMNS,
+      data: reservations,
+    },
+    usePagination
+  );
+
+  const { pageIndex } = state;
+
   if (reservations.length < 1) {
-    return <p className="m-10 text-center">Ładowanie...</p>;
+    return <p className="m-10 text-center">Ładowanie listy rezerwacji...</p>;
   }
 
-  console.log(reservations);
-
   return (
-    <div>
+    <div className="w-full mb-4">
       <h1 className="text-2xl font-bold mb-4">Lista rezerwacji</h1>
-      <table className="border border-gray-200 rounded overflow-hidden shadow-md">
-        <thead className="px-4 py-2 bg-white border-b last:border-none border-gray-200">
-          <tr>
-            <th className="py-2 px-4">Imię</th>
-            <th className="py-2 px-4">Nazwisko</th>
-            <th className="py-2 px-4">Od</th>
-            <th className="py-2 px-4">Do</th>
-            <th className="py-2 px-4">ID pokoju</th>
-            <th className="py-2 px-4"></th>
-          </tr>
+      <table
+        className="border border-gray-200 rounded overflow-hidden shadow-md w-full"
+        {...getTableProps()}
+      >
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <th
+                  {...column.getHeaderProps()}
+                  className="px-4 py-2 border border-gray-200 text-center text-white bg-gray-800"
+                >
+                  {column.render("Header")}
+                </th>
+              ))}
+            </tr>
+          ))}
         </thead>
-        <tbody>
-          {reservations.map((reservation) => {
+        <tbody {...getTableBodyProps()}>
+          {page.map((row) => {
+            prepareRow(row);
             return (
-              <tr
-                key={reservation._id}
-                className="px-4 py-2 bg-white border-b last:border-none border-gray-200"
-              >
-                <td className="py-2 px-4">{reservation.firstName}</td>
-                <td className="py-2 px-4">{reservation.lastName}</td>
-                <td className="py-2 px-4">
-                  {new Date(reservation.dateFrom).toLocaleDateString(
-                    "pl-PL",
-                    options
-                  )}
-                </td>
-                <td className="py-2 px-4">
-                  {new Date(reservation.dateTo).toLocaleDateString(
-                    "pl-PL",
-                    options
-                  )}
-                </td>
-                <td className="py-2 px-4">{reservation.roomId}</td>
-                <td>
-                  <button
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 m-2 rounded focus:outline-none focus:shadow-outline text-xs"
-                    type="submit"
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => (
+                  <td
+                    {...cell.getCellProps()}
+                    className="px-4 py-2 bg-white border border-gray-200 text-center"
                   >
-                    Usuń
-                  </button>
-                </td>
+                    {cell.render("Cell")}
+                  </td>
+                ))}
               </tr>
             );
           })}
         </tbody>
       </table>
+      <div className="flex gap-1 justify-center mt-2">
+        <span>{`Strona ${pageIndex + 1} z ${pageOptions.length}`}</span>
+        <button
+          onClick={() => previousPage()}
+          className="bg-gray-500 enabled:hover:bg-gray-800 text-white font-bold text-xs py-1 px-2 rounded focus:outline-none focus:shadow-outline disabled:opacity-25 disabled:cursor-not-allowed"
+          disabled={!canPreviousPage}
+        >
+          Poprzedni
+        </button>
+        <button
+          onClick={() => nextPage()}
+          className="bg-gray-500 enabled:hover:bg-gray-800 text-white font-bold text-xs py-1 px-2 rounded focus:outline-none focus:shadow-outline disabled:opacity-25 disabled:cursor-not-allowed"
+          disabled={!canNextPage}
+        >
+          Następny
+        </button>
+      </div>
     </div>
   );
 };
