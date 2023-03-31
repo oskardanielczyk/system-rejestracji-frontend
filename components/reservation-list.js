@@ -7,7 +7,7 @@ import { format } from "date-fns";
 const handleDelete = async (id) => {
   try {
     const response = await axios.delete(
-      "http://6.tcp.eu.ngrok.io:17924/admin/reservations",
+      "https://7adc-37-30-112-149.eu.ngrok.io/admin/reservations",
       {
         data: {
           id,
@@ -78,7 +78,7 @@ const ReservationList = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://6.tcp.eu.ngrok.io:17924/admin/reservations",
+          "https://7adc-37-30-112-149.eu.ngrok.io/admin/reservations",
           {
             headers: {
               authorization: `Bearer: ${Cookies.get("token")}`,

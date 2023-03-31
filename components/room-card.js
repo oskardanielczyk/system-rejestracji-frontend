@@ -16,7 +16,7 @@ const RoomCard = (props) => {
   const handleDelete = async (id) => {
     try {
       const response = await axios.delete(
-        "http://6.tcp.eu.ngrok.io:17924/admin/room",
+        "https://7adc-37-30-112-149.eu.ngrok.io/admin/room",
         {
           data: {
             id,

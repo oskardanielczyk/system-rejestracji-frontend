@@ -10,7 +10,7 @@ export default function Home() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://6.tcp.eu.ngrok.io:17924/rooms/"
+          "https://7adc-37-30-112-149.eu.ngrok.io/rooms/"
         );
 
         setRooms(response.data);
