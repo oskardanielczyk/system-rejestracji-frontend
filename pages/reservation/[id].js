@@ -14,7 +14,7 @@ const Reservation = () => {
         powrót do listy pokoi
       </Link>
       <div className="lg:flex gap-4 px-10">
-        <ReservationForm roomId={data.id} />
+        <ReservationForm roomId={data.id} price={data.price} />
         <RoomDetails data={data} />
       </div>
     </>

@@ -10,7 +10,7 @@ export default function Home() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://systemrejestracji.up.railway.app/rooms/"
+          "http://6.tcp.eu.ngrok.io:17924/rooms/"
         );
 
         setRooms(response.data);
@@ -19,7 +19,7 @@ export default function Home() {
       }
     };
     fetchData();
-  }, []);
+  }, [rooms]);
 
   if (rooms.length < 1) {
     return <p className="m-10 text-center">Ładowanie...</p>;

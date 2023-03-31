@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ReactDatePicker from "react-datepicker";
 import axios from "axios";
+import { format } from "date-fns";
 
 const ReservationForm = (props) => {
   const [firstName, setFirstName] = useState("");
@@ -26,7 +27,7 @@ const ReservationForm = (props) => {
     try {
       setIsLoading(true);
       const response = await axios.post(
-        "https://systemrejestracji.up.railway.app/reservation",
+        "http://6.tcp.eu.ngrok.io:17924/reservation",
         {
           firstName,
           lastName,
@@ -179,20 +180,41 @@ const ReservationForm = (props) => {
             }}
           />
         </div>
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Termin wizyty
-          </label>
-          <ReactDatePicker
-            selected={dateFrom}
-            startDate={dateFrom}
-            endDate={dateTo}
-            dateFormat="dd.MM.yyyy"
-            onChange={onDateChange}
-            selectsRange
-            inline
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
+        <div className="flex gap-10 mb-6">
+          <div>
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Termin wizyty
+            </label>
+            <ReactDatePicker
+              selected={dateFrom}
+              startDate={dateFrom}
+              endDate={dateTo}
+              dateFormat="dd.MM.yyyy"
+              onChange={onDateChange}
+              selectsRange
+              inline
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <div>
+            <h1 className="block text-gray-700 text-sm font-bold mb-2">
+              Szczegóły rezerwacji
+            </h1>
+            <p>{`Termin: ${format(new Date(dateFrom), "dd.MM.yyyy")} - ${format(
+              new Date(dateTo),
+              "dd.MM.yyyy"
+            )}`}</p>
+            {Math.round((dateTo - dateFrom) / 1000 / 60 / 60 / 24) *
+              props.price >
+            0 ? (
+              <p>{`Cena za pobyt: ${
+                Math.round((dateTo - dateFrom) / 1000 / 60 / 60 / 24) *
+                props.price
+              } zł`}</p>
+            ) : (
+              <p>Cena za pobyt: wybierz daty z kalendarza</p>
+            )}
+          </div>
         </div>
 
         {isLoading ? (

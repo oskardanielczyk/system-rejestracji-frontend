@@ -25,7 +25,7 @@ const RoomAddForm = () => {
     try {
       setIsLoading(true);
       const response = await axios.post(
-        "https://systemrejestracji.up.railway.app/admin/room",
+        "http://6.tcp.eu.ngrok.io:17924/admin/room",
         {
           name,
           peopleCount,

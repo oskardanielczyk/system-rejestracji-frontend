@@ -4,6 +4,27 @@ import Cookies from "js-cookie";
 import { useTable, usePagination } from "react-table";
 import { format } from "date-fns";
 
+const handleDelete = async (id) => {
+  try {
+    const response = await axios.delete(
+      "http://6.tcp.eu.ngrok.io:17924/admin/reservations",
+      {
+        data: {
+          id,
+        },
+        headers: {
+          authorization: `Bearer: ${Cookies.get("token")}`,
+        },
+        withCredentials: true,
+      }
+    );
+
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const COLUMNS = [
   {
     Header: "Imię",
@@ -21,14 +42,14 @@ const COLUMNS = [
     Header: "Od",
     accessor: "dateFrom",
     Cell: ({ value }) => {
-      return format(new Date(value), "dd.mm.yyyy");
+      return format(new Date(value), "dd.MM.yyyy");
     },
   },
   {
     Header: "Do",
     accessor: "dateTo",
     Cell: ({ value }) => {
-      return format(new Date(value), "dd.mm.yyyy");
+      return format(new Date(value), "dd.MM.yyyy");
     },
   },
   {
@@ -37,9 +58,12 @@ const COLUMNS = [
   },
   {
     Header: "Akcje",
-    Cell: () => {
+    Cell: (row) => {
       return (
-        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline">
+        <button
+          onClick={(e) => handleDelete(row.row.original._id)}
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
           X
         </button>
       );
@@ -54,7 +78,7 @@ const ReservationList = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://systemrejestracji.up.railway.app/admin/reservations",
+          "http://6.tcp.eu.ngrok.io:17924/admin/reservations",
           {
             headers: {
               authorization: `Bearer: ${Cookies.get("token")}`,
@@ -69,7 +93,7 @@ const ReservationList = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [reservations]);
 
   const {
     getTableProps,

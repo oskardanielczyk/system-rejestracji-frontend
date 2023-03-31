@@ -1,7 +1,39 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useContext } from "react";
+import Cookies from "js-cookie";
+import axios from "axios";
+
+import LoginData from "@/store/login-data";
 
 const RoomCard = (props) => {
+  const { token, setToken } = useContext(LoginData);
+
+  useEffect(() => {
+    setToken(Cookies.get("token"));
+  });
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.delete(
+        "http://6.tcp.eu.ngrok.io:17924/admin/room",
+        {
+          data: {
+            id,
+          },
+          headers: {
+            authorization: `Bearer: ${Cookies.get("token")}`,
+          },
+          withCredentials: true,
+        }
+      );
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="my-7 shadow rounded overflow-hidden relative bg-white">
       <Image
@@ -42,16 +74,24 @@ const RoomCard = (props) => {
         <p className="mt-5 mb-1 font-bold">Opis:</p>
         <p className="leading-7">{props.data.shortDescription}</p>
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-end gap-1 pr-4">
         <Link
           href={{
             pathname: `/reservation/${props.data._id}`,
             query: props.data,
           }}
-          className="py-2 px-4 m-4 bg-blue-500 rounded text-white font-bold"
+          className="py-2 px-4 m-4 mr-0 bg-blue-500 rounded text-white font-bold"
         >
           Zarezerwuj
         </Link>
+        {token && (
+          <button
+            onClick={(e) => handleDelete(props.data._id)}
+            className="py-2 px-4 my-4 mx-0 bg-red-500 rounded text-white font-bold"
+          >
+            Usuń pokój
+          </button>
+        )}
       </div>
     </div>
   );

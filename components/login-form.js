@@ -20,7 +20,7 @@ const LoginForm = () => {
     try {
       setIsLoading(true);
       const response = await axios.post(
-        "https://systemrejestracji.up.railway.app/users/login",
+        "http://6.tcp.eu.ngrok.io:17924/users/login",
         {
           login,
           password,
