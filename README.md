@@ -18,4 +18,4 @@ Link do repo backendu: https://github.com/kamilosb/systemrejestracji
 ## Deploy
 
 Frontend znajduje się pod adresem:
-https://system-rejestracji-frontend.vercel.app/
+http://2.tcp.eu.ngrok.io:10064/
